@@ -1,0 +1,7 @@
+PostProcedureQuestionID,SurveyType,QuestionNumber,QuestionDetails,AnswerOptions
+1,Colonoscopy,1,Here are some details…,"{
+  ""PostProcedureQuestionAnswers"": [
+    ""Yes"",
+    ""No""
+  ]
+}"

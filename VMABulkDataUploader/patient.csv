@@ -1,0 +1,2 @@
+PatientID,PhoneNumber,UniqueCode,IsAuthenticated,PIN,IsBloodThinner,IsNonSteroidal,IsAnesthesia,IsIronSupplement,IsPulmonaryIssue,IsAuthDefibrillator,IsAllergy
+1,4938116,275a41,0,7123,0,1,None,1,None,0,None

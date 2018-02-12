@@ -1,0 +1,7 @@
+PreProcedureQuestionID,QuestionDetails,AnswerOptions,AttributeName
+1,Here are some preprocedure details…,"{
+  ""PreProcedureQuestionAnswers"": [
+    ""Yes"",
+    ""No""
+  ]
+}",IsBloodThinner

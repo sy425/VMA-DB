@@ -1,0 +1,2 @@
+AppointmentID,PatientID,MedicalProcedureID,TimeDate,LocationAddress,LocationPhoneNumber,Provider
+1,1,1,2018/04/20 12:00:00,123 Main Street,5555555,BuxMont
