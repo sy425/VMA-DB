@@ -1,7 +1,7 @@
 
 HOST = "localhost"
 USER = "root"
-PASSWORD = "root"
+PASSWORD = "ChangeMe2018!"
 DATABASE_NAME = "VMA"
 
 # Change this to either True or False depending on if you want
