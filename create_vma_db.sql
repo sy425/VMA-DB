@@ -54,7 +54,8 @@ CREATE TABLE IF NOT EXISTS `vma`.`medicalprocedure` (
   `ProcedureDetails` TEXT NOT NULL,
   `AssociatedSurveys` VARCHAR(100) NOT NULL,
   `CreateTS` DATETIME NOT NULL,
-  PRIMARY KEY (`MedicalProcedureID`))
+  PRIMARY KEY (`MedicalProcedureID`),
+  UNIQUE (`ProcedureType`))
 ENGINE = InnoDB
 DEFAULT CHARACTER SET = utf8;
 
