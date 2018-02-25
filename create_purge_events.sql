@@ -6,7 +6,7 @@
 
 SET SQL_SAFE_UPDATES = 0;
 
-CREATE EVENT IF NOT EXISTS dailyPurge
+CREATE EVENT IF NOT EXISTS vma.dailyPurge
     ON SCHEDULE EVERY 1 DAY
     COMMENT 'Purges records older than 2 weeks past the appointment date'
     DO
