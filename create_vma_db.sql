@@ -35,6 +35,7 @@ CREATE TABLE IF NOT EXISTS `vma`.`patient` (
   `IsPulmonaryIssue` VARCHAR(500) NOT NULL,
   `IsAuthDefibrillator` TINYINT(1) NOT NULL,
   `IsAllergy` VARCHAR(500) NOT NULL,
+  `CreateTS` DATETIME NOT NULL,
   PRIMARY KEY (`PatientID`))
 ENGINE = InnoDB
 DEFAULT CHARACTER SET = utf8;
@@ -52,6 +53,7 @@ CREATE TABLE IF NOT EXISTS `vma`.`medicalprocedure` (
   `ProcedureType` VARCHAR(30) NOT NULL,
   `ProcedureDetails` TEXT NOT NULL,
   `AssociatedSurveys` VARCHAR(100) NOT NULL,
+  `CreateTS` DATETIME NOT NULL,
   PRIMARY KEY (`MedicalProcedureID`))
 ENGINE = InnoDB
 DEFAULT CHARACTER SET = utf8;
@@ -69,6 +71,7 @@ CREATE TABLE IF NOT EXISTS `vma`.`appointment` (
   `LocationAddress` VARCHAR(100) NOT NULL,
   `LocationPhoneNumber` INT(10) NOT NULL,
   `Provider` VARCHAR(30) NOT NULL,
+  `CreateTS` DATETIME NOT NULL,
   PRIMARY KEY (`AppointmentID`),
   CONSTRAINT `appointment_ibfk_1`
     FOREIGN KEY (`PatientID`)
@@ -96,6 +99,7 @@ CREATE TABLE IF NOT EXISTS `vma`.`postprocedurequestion` (
   `QuestionNumber` INT(5) NOT NULL,
   `QuestionDetails` TEXT NOT NULL,
   `AnswerOptions` JSON NOT NULL,
+  `CreateTS` DATETIME NOT NULL,
   PRIMARY KEY (`PostProcedureQuestionID`))
 ENGINE = InnoDB
 DEFAULT CHARACTER SET = utf8;
@@ -110,6 +114,7 @@ CREATE TABLE IF NOT EXISTS `vma`.`postprocedurequestionresponse` (
   `AppointmentID` INT(10) NOT NULL,
   `PostProcedureQuestionID` INT(10) NOT NULL,
   `Answer` TEXT NOT NULL,
+  `CreateTS` DATETIME NOT NULL,
   PRIMARY KEY (`PostProcedureQuestionResponseID`),
   CONSTRAINT `postprocedurequestionresponse_ibfk_1`
     FOREIGN KEY (`AppointmentID`)
@@ -136,6 +141,7 @@ CREATE TABLE IF NOT EXISTS `vma`.`preprocedurequestion` (
   `QuestionDetails` TEXT NOT NULL,
   `AnswerOptions` JSON NOT NULL,
   `AttributeName` VARCHAR(30) NOT NULL,
+  `CreateTS` DATETIME NOT NULL,
   PRIMARY KEY (`PreProcedureQuestionID`))
 ENGINE = InnoDB
 DEFAULT CHARACTER SET = utf8;
@@ -150,6 +156,7 @@ CREATE TABLE IF NOT EXISTS `vma`.`preprocedurequestionnumber` (
   `MedicalProcedureID` INT(10) NOT NULL,
   `PreProcedureQuestionID` INT(10) NOT NULL,
   `QuestionNumber` INT(5) NOT NULL,
+  `CreateTS` DATETIME NOT NULL,
   PRIMARY KEY (`PreProcedureQuestionNumberID`),
   CONSTRAINT `preprocedurequestionnumber_ibfk_1`
     FOREIGN KEY (`MedicalProcedureID`)
@@ -175,6 +182,7 @@ CREATE TABLE IF NOT EXISTS `vma`.`specialinstruction` (
   `SpecialInstructionID` INT(10) NOT NULL AUTO_INCREMENT,
   `AttributeName` VARCHAR(30) NOT NULL,
   `Instructions` TEXT NOT NULL,
+  `CreateTS` DATETIME NOT NULL,
   PRIMARY KEY (`SpecialInstructionID`))
 ENGINE = InnoDB
 DEFAULT CHARACTER SET = utf8;
