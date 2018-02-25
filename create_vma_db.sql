@@ -91,18 +91,40 @@ CREATE INDEX `MedicalProcedureID` ON `vma`.`appointment` (`MedicalProcedureID` A
 SHOW WARNINGS;
 
 -- -----------------------------------------------------
+-- Table `vma`.`surveytype`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `vma`.`surveytype` (
+  `SurveyTypeID` INT(10) NOT NULL AUTO_INCREMENT,
+  -- LW: Name of the survey means the specific procedure the survey corresponds with, such as Colonoscopy or Endoscopy
+  `Name` VARCHAR(100) NOT NULL,
+  -- LW: Category of the survey, such as if it is a post procedure or patient satisfaction questionnaire
+  `Category` VARCHAR(50) NOT NULL,
+  `CreateTS` DATETIME NOT NULL,
+  PRIMARY KEY (`SurveyTypeID`))
+ENGINE = InnoDB
+DEFAULT CHARACTER SET = utf8;
+
+SHOW WARNINGS;
+
+-- -----------------------------------------------------
 -- Table `vma`.`postprocedurequestion`
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS `vma`.`postprocedurequestion` (
   `PostProcedureQuestionID` INT(10) NOT NULL AUTO_INCREMENT,
-  `SurveyType` VARCHAR(30) NOT NULL,
+  `SurveyTypeID` INT(10) NOT NULL,
   `QuestionNumber` INT(5) NOT NULL,
   `QuestionDetails` TEXT NOT NULL,
   `AnswerOptions` JSON NOT NULL,
   `CreateTS` DATETIME NOT NULL,
-  PRIMARY KEY (`PostProcedureQuestionID`))
+  PRIMARY KEY (`PostProcedureQuestionID`),
+  CONSTRAINT `postprocedurequestion_ibfk_1`
+    FOREIGN KEY (`SurveyTypeID`)
+    REFERENCES `vma`.`surveytype` (`SurveyTypeID`))
 ENGINE = InnoDB
 DEFAULT CHARACTER SET = utf8;
+
+SHOW WARNINGS;
+CREATE INDEX `SurveyTypeID` ON `vma`.`postprocedurequestion` (`SurveyTypeID` ASC);
 
 SHOW WARNINGS;
 
