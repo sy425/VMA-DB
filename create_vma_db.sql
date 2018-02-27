@@ -36,6 +36,8 @@ CREATE TABLE IF NOT EXISTS `vma`.`patient` (
   `IsAuthDefibrillator` TINYINT(1) NOT NULL,
   `IsAllergy` VARCHAR(500) NOT NULL,
   `CreateTS` DATETIME NOT NULL,
+  `lastUpdateTS` DATETIME NOT NULL,
+  `createdBy`VARCHAR(100) NOT NULL,
   PRIMARY KEY (`PatientID`))
 ENGINE = InnoDB
 DEFAULT CHARACTER SET = utf8;
@@ -54,6 +56,8 @@ CREATE TABLE IF NOT EXISTS `vma`.`medicalprocedure` (
   `ProcedureDetails` TEXT NOT NULL,
   `AssociatedSurveys` VARCHAR(100) NOT NULL,
   `CreateTS` DATETIME NOT NULL,
+  `lastUpdateTS` DATETIME NOT NULL,
+  `createdBy`VARCHAR(100) NOT NULL,
   PRIMARY KEY (`MedicalProcedureID`),
   UNIQUE (`ProcedureType`))
 ENGINE = InnoDB
@@ -73,6 +77,8 @@ CREATE TABLE IF NOT EXISTS `vma`.`appointment` (
   `LocationPhoneNumber` INT(10) NOT NULL,
   `Provider` VARCHAR(30) NOT NULL,
   `CreateTS` DATETIME NOT NULL,
+  `lastUpdateTS` DATETIME NOT NULL,
+  `createdBy`VARCHAR(100) NOT NULL,
   PRIMARY KEY (`AppointmentID`),
   CONSTRAINT `appointment_ibfk_1`
     FOREIGN KEY (`PatientID`)
@@ -101,6 +107,8 @@ CREATE TABLE IF NOT EXISTS `vma`.`surveytype` (
   -- LW: Category of the survey, such as if it is a post procedure or patient satisfaction questionnaire
   `Category` VARCHAR(50) NOT NULL,
   `CreateTS` DATETIME NOT NULL,
+  `lastUpdateTS` DATETIME NOT NULL,
+  `createdBy`VARCHAR(100) NOT NULL,
   PRIMARY KEY (`SurveyTypeID`))
 ENGINE = InnoDB
 DEFAULT CHARACTER SET = utf8;
@@ -117,6 +125,8 @@ CREATE TABLE IF NOT EXISTS `vma`.`postprocedurequestion` (
   `QuestionDetails` TEXT NOT NULL,
   `AnswerOptions` JSON NOT NULL,
   `CreateTS` DATETIME NOT NULL,
+  `lastUpdateTS` DATETIME NOT NULL,
+  `createdBy`VARCHAR(100) NOT NULL,
   PRIMARY KEY (`PostProcedureQuestionID`),
   CONSTRAINT `postprocedurequestion_ibfk_1`
     FOREIGN KEY (`SurveyTypeID`)
@@ -138,6 +148,8 @@ CREATE TABLE IF NOT EXISTS `vma`.`postprocedurequestionresponse` (
   `PostProcedureQuestionID` INT(10) NOT NULL,
   `Answer` TEXT NOT NULL,
   `CreateTS` DATETIME NOT NULL,
+  `lastUpdateTS` DATETIME NOT NULL,
+  `createdBy`VARCHAR(100) NOT NULL,
   PRIMARY KEY (`PostProcedureQuestionResponseID`),
   CONSTRAINT `postprocedurequestionresponse_ibfk_1`
     FOREIGN KEY (`AppointmentID`)
@@ -165,6 +177,8 @@ CREATE TABLE IF NOT EXISTS `vma`.`preprocedurequestion` (
   `AnswerOptions` JSON NOT NULL,
   `AttributeName` VARCHAR(30) NOT NULL,
   `CreateTS` DATETIME NOT NULL,
+  `lastUpdateTS` DATETIME NOT NULL,
+  `createdBy`VARCHAR(100) NOT NULL,
   PRIMARY KEY (`PreProcedureQuestionID`))
 ENGINE = InnoDB
 DEFAULT CHARACTER SET = utf8;
@@ -180,6 +194,8 @@ CREATE TABLE IF NOT EXISTS `vma`.`preprocedurequestionnumber` (
   `PreProcedureQuestionID` INT(10) NOT NULL,
   `QuestionNumber` INT(5) NOT NULL,
   `CreateTS` DATETIME NOT NULL,
+  `lastUpdateTS` DATETIME NOT NULL,
+  `createdBy`VARCHAR(100) NOT NULL,
   PRIMARY KEY (`PreProcedureQuestionNumberID`),
   CONSTRAINT `preprocedurequestionnumber_ibfk_1`
     FOREIGN KEY (`MedicalProcedureID`)
@@ -199,19 +215,49 @@ CREATE INDEX `PreProcedureQuestionID` ON `vma`.`preprocedurequestionnumber` (`Pr
 SHOW WARNINGS;
 
 -- -----------------------------------------------------
--- Table `vma`.`specialinstruction`
+-- Table `vma`.`instruction`
 -- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `vma`.`specialinstruction` (
-  `SpecialInstructionID` INT(10) NOT NULL AUTO_INCREMENT,
+CREATE TABLE IF NOT EXISTS `vma`.`instruction` (
+  `instructionID` INT(10) NOT NULL AUTO_INCREMENT,
   `AttributeName` VARCHAR(30) NOT NULL,
-  `Instructions` TEXT NOT NULL,
+  `desc` TEXT NOT NULL,
   `CreateTS` DATETIME NOT NULL,
-  PRIMARY KEY (`SpecialInstructionID`))
+  `lastUpdateTS` DATETIME NOT NULL,
+  `createdBy`VARCHAR(100) NOT NULL,
+  PRIMARY KEY (`instructionID`))
 ENGINE = InnoDB
 DEFAULT CHARACTER SET = utf8;
 
 SHOW WARNINGS;
-CREATE UNIQUE INDEX `AttributeName` ON `vma`.`specialinstruction` (`AttributeName` ASC);
+CREATE UNIQUE INDEX `AttributeName` ON `vma`.`instruction` (`AttributeName` ASC);
+
+SHOW WARNINGS;
+
+-- -----------------------------------------------------
+-- Table `vma`.`medicalInstruction`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `vma`.`medicalInstruction` (
+  `medicalInstructionID` INT(10) NOT NULL AUTO_INCREMENT,
+  `MedicalProcedureID` INT(10) NOT NULL,
+  `instructionID` INT(10) NOT NULL,
+  `CreateTS` DATETIME NOT NULL,
+  `lastUpdateTS` DATETIME NOT NULL,
+  `createdBy`VARCHAR(100) NOT NULL,
+  PRIMARY KEY (`medicalInstructionID`),
+  CONSTRAINT `medicalInstruction_ibfk_1`
+    FOREIGN KEY (`MedicalProcedureID`)
+    REFERENCES `vma`.`medicalprocedure` (`MedicalProcedureID`),
+  CONSTRAINT `medicalInstruction_ibfk_2`
+    FOREIGN KEY (`instructionID`)
+    REFERENCES `vma`.`instruction` (`instructionID`))
+ENGINE = InnoDB
+DEFAULT CHARACTER SET = utf8;
+
+SHOW WARNINGS;
+CREATE INDEX `MedicalProcedureID` ON `vma`.`medicalInstruction` (`MedicalProcedureID` ASC);
+
+SHOW WARNINGS;
+CREATE INDEX `PreProcedureQuestionID` ON `vma`.`medicalInstruction` (`instructionID` ASC);
 
 SHOW WARNINGS;
 

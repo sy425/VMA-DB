@@ -14,7 +14,8 @@ DROP TABLE IF EXISTS vma.postprocedurequestion;
 DROP TABLE IF EXISTS vma.postprocedurequestionresponse;
 DROP TABLE IF EXISTS vma.preprocedurequestion;
 DROP TABLE IF EXISTS vma.preprocedurequestionnumber;
-DROP TABLE IF EXISTS vma.specialinstruction;
+DROP TABLE IF EXISTS vma.instruction;
+DROP TABLE IF EXISTS vma.medicalInstruction;
 
 DROP EVENT IF EXISTS vma.dailyPurge;
 
