@@ -221,6 +221,7 @@ CREATE TABLE IF NOT EXISTS `vma`.`instruction` (
   `instructionID` INT(10) NOT NULL AUTO_INCREMENT,
   `AttributeName` VARCHAR(30) NOT NULL,
   `desc` TEXT NOT NULL,
+  `specialInstruction` VARCHAR(25) NOT NULL,
   `CreateTS` DATETIME NOT NULL,
   `lastUpdateTS` DATETIME NOT NULL,
   `createdBy`VARCHAR(100) NOT NULL,
