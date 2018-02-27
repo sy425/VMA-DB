@@ -74,7 +74,7 @@ CREATE TABLE IF NOT EXISTS `vma`.`appointment` (
   `MedicalProcedureID` INT(10) NOT NULL,
   `TimeDate` DATETIME NOT NULL,
   `LocationAddress` VARCHAR(100) NOT NULL,
-  `LocationPhoneNumber` INT(10) NOT NULL,
+  `LocationPhoneNumber` CHAR(10) NOT NULL,
   `Provider` VARCHAR(30) NOT NULL,
   `CreateTS` DATETIME NOT NULL,
   `lastUpdateTS` DATETIME NOT NULL,
