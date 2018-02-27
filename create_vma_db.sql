@@ -24,7 +24,7 @@ USE `vma` ;
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS `vma`.`patient` (
   `PatientID` INT(10) NOT NULL AUTO_INCREMENT,
-  `PhoneNumber` INT(10) NOT NULL,
+  `PhoneNumber` CHAR(10) NOT NULL,
   `UniqueCode` CHAR(6) NOT NULL,
   `IsAuthenticated` TINYINT(1) NOT NULL,
   `PIN` INT(4) NULL DEFAULT NULL,
